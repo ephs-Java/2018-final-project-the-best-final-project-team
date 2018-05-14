@@ -15,7 +15,6 @@ public class MainClass {
 		frame.add(new Game());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		System.out.println("hi");
 	}
 
 }
