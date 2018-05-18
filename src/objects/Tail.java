@@ -68,7 +68,7 @@ public class Tail extends GlobalPosition{
 		//Game k = new Game();
 		length.get(0).setX(this.x);
 		length.get(0).setY(this.y);
-		for(int i = length.size() + 1; i > 0; i++){
+		for(int i = length.size() - 1; i > 0; i--){
 			length.set(i , length.get(i-1));
 		}
 		
