@@ -1,6 +1,6 @@
 package game;
 
-public class GlobalPosition {
+public class GlobalPosition{
 		
 	public int x;
 	public int y;

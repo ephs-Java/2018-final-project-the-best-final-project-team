@@ -17,8 +17,8 @@ public class KeyInput extends KeyAdapter{
 		this.p.keyPressed(e);
 	}
 	
-	public void keyReleased(KeyEvent e){
-		p.keyReleased(e);
-	}
+//	public void keyReleased(KeyEvent e){
+//		p.keyReleased(e);
+//	}
 
 }
