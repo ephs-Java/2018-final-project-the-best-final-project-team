@@ -10,7 +10,6 @@ public class MainClass {
 
 	public static void main(String[] args) {
 		
-		ArrayList<Tail> len = new ArrayList<Tail>();
 		JFrame frame = new JFrame();
 		frame.pack();
 		frame.setSize(500, 500);

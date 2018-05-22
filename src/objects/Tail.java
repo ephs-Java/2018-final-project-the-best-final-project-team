@@ -5,10 +5,15 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 import game.GlobalPosition;
 
 public class Tail extends GlobalPosition{
+	
+	public JFrame frame;
+	
+	Food f;
 	
 	private String tailImage = "/images/Green_square.png";
 
@@ -53,26 +58,25 @@ public class Tail extends GlobalPosition{
 	}
 	
 	//adds 3 items to length array list
-	public ArrayList<Tail> addTail(ArrayList<Tail> length){
-		for(int i = 0; i < 3; i++){
-			length.add(new Tail(length.get(length.size() - 1).getX(),
-					length.get(length.size() - 1).getY()));
-		}
-	return length;	
-
-	}
-	
-	// shifts all items in the array list to the previous spot.
-	public ArrayList<Tail> printTail(ArrayList<Tail> length){
-		
-		//Game k = new Game();
-		length.get(0).setX(this.x);
-		length.get(0).setY(this.y);
-		for(int i = length.size() - 1; i > 0; i--){
-			length.set(i , length.get(i-1));
-		}
-		
-	return length;	
-		
-	}
+//	public ArrayList<Player> addTail(ArrayList<Player> length){
+//		for(int i = 0; i < 3; i++){
+//			length.add(new Player(0, 0, frame, f));
+//		}
+//	return length;	
+//
+//	}
+//	
+//	// shifts all items in the array list to the previous spot.
+//	public ArrayList<Player> printTail(ArrayList<Player> length){
+//		
+//		//Game k = new Game();
+//		length.get(0).setX(this.x);
+//		length.get(0).setY(this.y);
+//		for(int i = length.size() - 1; i > 0; i--){
+//			length.set(i , length.get(i-1));
+//		}
+//		
+//	return length;	
+//		
+//	}
 }

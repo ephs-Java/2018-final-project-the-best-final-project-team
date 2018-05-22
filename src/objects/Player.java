@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import game.Game;
 import game.GlobalPosition;
 
 public class Player extends GlobalPosition{
@@ -16,15 +17,21 @@ public class Player extends GlobalPosition{
 	
 	int velX = 0;
 	int velY = 0;
+	int prvX = 0;
+	int prvY = 0;
 	public JFrame frame;
 	Food f;
 	int length = 1;
-	public  ArrayList<Tail> len;
+	int IDIndex;
+	public static int ID = 0;
+	Player p;
 
 	public Player(int x, int y, JFrame frame, Food f) {
 		super(x, y);
 		this.frame = frame;
 		this.f = f;
+		IDIndex = ID;
+		ID++;
 		
 	}
 	
@@ -36,11 +43,78 @@ public class Player extends GlobalPosition{
 		return y;
 	}
 	
+	public int getPrvX(){
+		return prvX;
+	}
+	
+	public int getPrvY(){
+		return prvY;
+	}
+	
+	public void setX(int h){
+		this.x = h;
+	}
+	
+	public void setY(int h){
+		this.y = h;
+	}
+	
 	public void printTail(){
 	
 	}
+	
+//	public ArrayList<Player> addTail(ArrayList<Player> length){
+//		for(int i = 0; i < 3; i++){
+//			if(length.size() == 0){
+//				length.add(new Player(this.x,this.y,frame,f));
+//			}
+//			length.add(new Player(length.get(length.size() - 1).getPrvX() ,
+//					length.get(length.size() - 1).getPrvY() , frame , f));
+//		}
+//	return length;	
+//
+//	}
+//	
+//	// shifts all items in the array list to the previous spot.
+//	public ArrayList<Player> printTail(ArrayList<Player> length){
+//		
+//		//Game k = new Game();
+//		length.get(0).setX(this.x);
+//		length.get(0).setY(this.y);
+//		for(int i = length.size() - 1; i > 0; i--){
+//			length.set(i , length.get(i-1));
+//		}
+//		
+//	return length;	
+//		
+//	}
 	//updates the player
+	
+public void updateTail(){
+	
+		Game player = new Game();
+		
+		prvX = x;
+		
+		prvY = y;
+		
+		x = player.getPrvX();
+		
+		y = player.getPrvY();	
+		
+		
+}
+	
+	
 	public void update(){
+		
+//		Game player = new Game();
+//		
+//		p = player.getplayer();
+		
+		prvX = x;
+		prvY = y;
+		
 		x += velX;
 		y += velY;
 		
@@ -58,19 +132,27 @@ public class Player extends GlobalPosition{
 			y = frame.getHeight() - getPlayerImageHeight() - 30;
 		}
 		
+		
+		
 		//Collision with Food
 		if(x == f.getX() && y == f.getY()){
 			
 			//increase tail		ERROR
-			if(length == 1){
-				len.add(new Tail(x,y));
-			}
-	
+			
+//			ArrayList<Player> len = new ArrayList<Player>();
+//			
+//			if(length == 1){
+//				len.add(new Player(0, 0, frame, f));
+//				length = 0;
+//			}
+//	
 //			for(int i = 0 ; i < 3 ; i++){
-//			Tail g = new Tail(len.get(len.size() - 1).getX(), len.get(len.size() - 1).getY());
-//			len.add(g);
-//			length++;
+//			len.add(new Player(0, 0, frame, f));
 //			} 
+			
+			Game player = new Game();
+			
+			player.addToLen();
 			
 			//Reposition food
 			int temp = (int)(Math.random() * frame.getWidth());
