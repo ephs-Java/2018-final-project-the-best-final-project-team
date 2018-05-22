@@ -3,7 +3,6 @@ package objects;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -15,16 +14,24 @@ public class Player extends GlobalPosition{
 	
 	private String playerimage = "/images/Green_square.png";	//selects the player image from the image folder
 	
+	//ints
 	int velX = 0;
 	int velY = 0;
 	int prvX = 0;
 	int prvY = 0;
-	public JFrame frame;
-	Food f;
 	int length = 1;
 	int IDIndex;
 	public static int ID = 0;
+	
+	//JFrame
+	public JFrame frame;
+	
+	//Food
+	Food f;
+	
+	//Player
 	Player p;
+
 
 	public Player(int x, int y, JFrame frame, Food f) {
 		super(x, y);
@@ -32,6 +39,9 @@ public class Player extends GlobalPosition{
 		this.f = f;
 		IDIndex = ID;
 		ID++;
+		
+		prvX = 0;
+		prvY = 0;
 		
 	}
 	
@@ -63,34 +73,7 @@ public class Player extends GlobalPosition{
 	
 	}
 	
-//	public ArrayList<Player> addTail(ArrayList<Player> length){
-//		for(int i = 0; i < 3; i++){
-//			if(length.size() == 0){
-//				length.add(new Player(this.x,this.y,frame,f));
-//			}
-//			length.add(new Player(length.get(length.size() - 1).getPrvX() ,
-//					length.get(length.size() - 1).getPrvY() , frame , f));
-//		}
-//	return length;	
-//
-//	}
-//	
-//	// shifts all items in the array list to the previous spot.
-//	public ArrayList<Player> printTail(ArrayList<Player> length){
-//		
-//		//Game k = new Game();
-//		length.get(0).setX(this.x);
-//		length.get(0).setY(this.y);
-//		for(int i = length.size() - 1; i > 0; i--){
-//			length.set(i , length.get(i-1));
-//		}
-//		
-//	return length;	
-//		
-//	}
-	//updates the player
-	
-public void updateTail(){
+	public void updateTail(int i){
 	
 		Game player = new Game();
 		
@@ -98,19 +81,14 @@ public void updateTail(){
 		
 		prvY = y;
 		
-		x = player.getPrvX();
+		x = player.getPrvX(i);
 		
-		y = player.getPrvY();	
+		y = player.getPrvY(i);	
 		
 		
 }
 	
-	
 	public void update(){
-		
-//		Game player = new Game();
-//		
-//		p = player.getplayer();
 		
 		prvX = x;
 		prvY = y;
@@ -130,40 +108,30 @@ public void updateTail(){
 		}
 		if(y > frame.getHeight() - getPlayerImageHeight() - 30){
 			y = frame.getHeight() - getPlayerImageHeight() - 30;
-		}
-		
-		
+		}	
 		
 		//Collision with Food
 		if(x == f.getX() && y == f.getY()){
 			
-			//increase tail		ERROR
-			
-//			ArrayList<Player> len = new ArrayList<Player>();
-//			
-//			if(length == 1){
-//				len.add(new Player(0, 0, frame, f));
-//				length = 0;
-//			}
-//	
-//			for(int i = 0 ; i < 3 ; i++){
-//			len.add(new Player(0, 0, frame, f));
-//			} 
-			
+			//adds to len
 			Game player = new Game();
-			
 			player.addToLen();
 			
 			//Reposition food
 			int temp = (int)(Math.random() * frame.getWidth());
 			f.setX(temp - temp%10);
 			temp = (int)(Math.random() * frame.getHeight());
+			if( temp > 22){
+				temp -= 22;
+			}
 			f.setY(temp - temp%10 - 30);
 			if( f.getY() < 0){
 				f.setY(0);
-			}
-		}
-	}
+			} //if
+			
+		} //Collision with Food
+		
+	} //update
 	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
@@ -171,57 +139,40 @@ public void updateTail(){
 			velY = 0;
 			velX = 10;
 		}
+		
 		else if(key == KeyEvent.VK_LEFT){
 			velY = 0;
 			velX = -10;
 		}
+		
 		else if(key == KeyEvent.VK_DOWN){
 			velX = 0;
 			velY = 10;
 		}
+		
 		else if(key == KeyEvent.VK_UP){
 			velX = 0;
 			velY = -10;
 		}
-	}
+		
+	} //keyPressed
 	
-//	public void keyReleased(KeyEvent e){
-//		int key = e.getKeyCode();
-//		
-//		if(key == KeyEvent.VK_RIGHT){
-//			velX = 0;
-//		}
-//		else if(key == KeyEvent.VK_LEFT){
-//			velX = 0;
-//		}
-//		else if(key == KeyEvent.VK_DOWN){
-//			velY = 0;
-//		}
-//		else if(key == KeyEvent.VK_UP){
-//			velY = 0;
-//		}
-//	}
-	
-	//draws the player image at x y
-	public void draw(Graphics2D g2d){
+	public void draw(Graphics2D g2d){		//draws the player image at x y
 		g2d.drawImage(getPlayerImage(), x, y, null);	
 		
 	}
 	
-	//turns String Green Square into an image
-	public Image getPlayerImage(){	
+	public Image getPlayerImage(){			//turns String Green Square into an image
 		ImageIcon i = new ImageIcon(getClass().getResource(playerimage));
 		return i.getImage();
 	}
 	
-	//player image height
-	public int getPlayerImageHeight(){
+	public int getPlayerImageHeight(){		//player image height
 		ImageIcon i = new ImageIcon(getClass().getResource(playerimage));
 		return i.getIconHeight();
 	}
 	
-	//player image width
-	public int getPlayerImageWidth(){
+	public int getPlayerImageWidth(){		//player image width
 		ImageIcon i = new ImageIcon(getClass().getResource(playerimage));
 		return i.getIconWidth();
 	}

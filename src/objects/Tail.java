@@ -11,12 +11,18 @@ import game.GlobalPosition;
 
 public class Tail extends GlobalPosition{
 	
+	
+	//Frame
 	public JFrame frame;
 	
+	//Food
 	Food f;
 	
+	//String
 	private String tailImage = "/images/Green_square.png";
-
+	
+	
+	//Constructors
 	public Tail(int x, int y) {
 		super(x , y);
 	}
@@ -24,6 +30,7 @@ public class Tail extends GlobalPosition{
 	public Tail() {
 		super(0,0);
 	}
+	
 	
 	//Getters & setters
 	public int getX(){
@@ -42,6 +49,7 @@ public class Tail extends GlobalPosition{
 		this.y = y;
 	}
 	
+	
 	//updates the tail
 	public void update(){
 		
@@ -57,26 +65,4 @@ public class Tail extends GlobalPosition{
 		return i.getImage();
 	}
 	
-	//adds 3 items to length array list
-//	public ArrayList<Player> addTail(ArrayList<Player> length){
-//		for(int i = 0; i < 3; i++){
-//			length.add(new Player(0, 0, frame, f));
-//		}
-//	return length;	
-//
-//	}
-//	
-//	// shifts all items in the array list to the previous spot.
-//	public ArrayList<Player> printTail(ArrayList<Player> length){
-//		
-//		//Game k = new Game();
-//		length.get(0).setX(this.x);
-//		length.get(0).setY(this.y);
-//		for(int i = length.size() - 1; i > 0; i--){
-//			length.set(i , length.get(i-1));
-//		}
-//		
-//	return length;	
-//		
-//	}
 }
