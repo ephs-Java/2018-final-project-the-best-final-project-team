@@ -23,8 +23,6 @@ public class Game extends JPanel implements ActionListener{
 	
 	//Players
 	public static Player p;
-	public static Player w;
-	public static Player t;
 	
 	//Food
 	Food f;
@@ -43,12 +41,15 @@ public class Game extends JPanel implements ActionListener{
 	//Other
 	private static final long serialVersionUID = 1L;
 	private String background = "/images/blackBackground.png";
+	private String gameOver = "/images/gameOver.png";
 	
 	
 	public Game(){
 	}
 	
 	public Game(JFrame frame){
+		this.frame = frame;
+		
 		setFocusable(true);
 		gameLoopTimer = new Timer(50, this);
 		gameLoopTimer.start();				//start the game loop, which activates the event handler
@@ -58,15 +59,9 @@ public class Game extends JPanel implements ActionListener{
 		
 		p = new Player(0, 0, frame, f);
 		
-		w = new Player(0,0, frame, f);
-		
-		t = new Player(0,0, frame, f);
-		
 		ArrayList<Player> blue = new ArrayList<Player>();
 		
 		blue.add(p);
-		
-		blue.add(w);
 		
 		len = blue;
 	
@@ -91,11 +86,23 @@ public class Game extends JPanel implements ActionListener{
 		for( Player k : len){
 			k.draw(g2d);
 		}	
+		if(hitSelf() || p.getIsDead()){
+			gameLoopTimer.stop();
+			f.setX(100000);
+			g2d.drawImage(getGameOverImage(), frame.getWidth() / 2 - getGameOverImage().getWidth(null) / 2,
+					frame.getHeight() / 2 - getGameOverImage().getHeight(null) / 2, null);
+			
+		}
 		
 	}
 	
 	public Image getBackgroundImage(){		//converts String background into an image
 		ImageIcon i = new ImageIcon(getClass().getResource(background));
+		return i.getImage();
+	}
+	
+	public Image getGameOverImage(){
+		ImageIcon i = new ImageIcon(getClass().getResource(gameOver));
 		return i.getImage();
 	}
 	
@@ -105,7 +112,8 @@ public class Game extends JPanel implements ActionListener{
 		
 		blue = len;
 		
-		blue.add(new Player(blue.get(blue.size() - 2).getPrvX(), blue.get(blue.size() - 2).getPrvY(), frame, f ));
+		blue.add(new Player(blue.get(blue.size() - 1).getPrvX(), blue.get(blue.size() - 1).getPrvY(),
+				frame, f ));
 
 		len = blue;
 		
@@ -127,22 +135,24 @@ public class Game extends JPanel implements ActionListener{
 		
 		repaint();									//calls the paint method
 		
-		p.update();	
+		p.update();									//calls update method in Player
+
 		
 		for(int i = 1 ; i < len.size() ; i++){
 			len.get(i).updateTail(i);
-		}	
+		}
 		
-													//calls update method in Player
-	/*	for(Player j : len){
-			if(j != null){
-				j.update();
-			} //if
-		}//for
+		
+	}
 	
-	*/
-		
-
+	//collision with self
+	public boolean hitSelf(){
+		for(int i = 1; i < len.size(); i++){
+			if(len.get(0).getX() == len.get(i).getX() && len.get(0).getY() == len.get(i).getY()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	} //Game

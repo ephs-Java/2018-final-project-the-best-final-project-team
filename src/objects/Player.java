@@ -19,9 +19,6 @@ public class Player extends GlobalPosition{
 	int velY = 0;
 	int prvX = 0;
 	int prvY = 0;
-	int length = 1;
-	int IDIndex;
-	public static int ID = 0;
 	
 	//JFrame
 	public JFrame frame;
@@ -31,18 +28,23 @@ public class Player extends GlobalPosition{
 	
 	//Player
 	Player p;
+	
+	//boolean
+	boolean isDead;
 
 
 	public Player(int x, int y, JFrame frame, Food f) {
 		super(x, y);
 		this.frame = frame;
 		this.f = f;
-		IDIndex = ID;
-		ID++;
 		
 		prvX = 0;
 		prvY = 0;
 		
+	}
+	
+	public boolean getIsDead(){
+		return isDead;
 	}
 	
 	public int getX(){
@@ -98,16 +100,16 @@ public class Player extends GlobalPosition{
 		
 		//Collision with the boarder
 		if(x < 0){
-			x = 0;
+			isDead = true;
 		}
 		if(x > frame.getWidth() - getPlayerImageWidth()){
-			x = frame.getWidth() - getPlayerImageWidth();
+			isDead = true;
 		}
 		if(y < 0){
-			y = 0;
+			isDead = true;
 		}
 		if(y > frame.getHeight() - getPlayerImageHeight() - 30){
-			y = frame.getHeight() - getPlayerImageHeight() - 30;
+			isDead = true;
 		}	
 		
 		//Collision with Food
@@ -115,7 +117,9 @@ public class Player extends GlobalPosition{
 			
 			//adds to len
 			Game player = new Game();
-			player.addToLen();
+			for(int i = 0; i < 3; i++){
+				player.addToLen();
+			}
 			
 			//Reposition food
 			int temp = (int)(Math.random() * frame.getWidth());
@@ -131,26 +135,28 @@ public class Player extends GlobalPosition{
 			
 		} //Collision with Food
 		
+		//collision with self
+		
 	} //update
 	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
-		if(key == KeyEvent.VK_RIGHT){
+		if(key == KeyEvent.VK_RIGHT && velX != -10){
 			velY = 0;
 			velX = 10;
 		}
 		
-		else if(key == KeyEvent.VK_LEFT){
+		else if(key == KeyEvent.VK_LEFT && velX != 10){
 			velY = 0;
 			velX = -10;
 		}
 		
-		else if(key == KeyEvent.VK_DOWN){
+		else if(key == KeyEvent.VK_DOWN && velY != -10){
 			velX = 0;
 			velY = 10;
 		}
 		
-		else if(key == KeyEvent.VK_UP){
+		else if(key == KeyEvent.VK_UP && velY != 10){
 			velX = 0;
 			velY = -10;
 		}

@@ -32,12 +32,6 @@ public class TailList {
 			
 		}
 		
-		public void setTail(public ArrayList<Player> tail){
-		
-			len = tail;
-			
-		}
-		
 		public void addTail(Player temp){
 			
 			len.add(temp);
